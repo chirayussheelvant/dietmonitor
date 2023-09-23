@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <style>
+  body {
+  background: linear-gradient(to right, #b4bf19, #ccc012);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#column-select, #column-select2 {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 2px 5px #BDBDBD;
+  margin-top: 20px;
+}
+
+#line, #bar, #line2, #bar2 {
+  width: 1200px;
+  height: 1200px;
+  margin: 50px 0px;
+}
+
+#date-id {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#date-id input[type="date"] {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 2px 2px 5px #BDBDBD;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#submitBtn {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  background-color: #4682B4;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  box-shadow: 2px 2px 5px #BDBDBD;
+  margin-top: 20px;
+}
+
+
+/* Container for the chart */
+.chart-container {
+  width: 800px; /* Increase the width of the container */
+  height: 500px; /* Increase the height of the container */
+  margin: 50px auto; /* Center the container */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Style the chart */
+.chart {
+  width: 100%; /* Fill the entire container */
+  height: 100%;
+  border-radius: 10px; /* Round the corners of the chart */
+  background-image: linear-gradient(to right, #2193b0, #6dd5ed); /* Add a gradient background */
+}
+
+/* Style the select button */
+.select-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 50px;
+  border: none;
+  background-image: linear-gradient(to right, #2193b0, #6dd5ed);
+  color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+  
+  </style>
+</head>
+<body>
+  <h2>Graph for total consumption</h2>
+  <select id="column-select" >
+    <option value="default" selected>No Selection</option>
+      <option value="proteins">protein</option>
+      <option value="fat">fat</option>
+      <option value="carbs">carbs</option>
+      <option value="sugar">sugar</option>
+      <option value="cholestrol">cholestrol</option>
+      <option value="fiber">fiber</option>
+      <option value="Iron">Iron</option>
+      <option value="potassium">Potassium</option>
+      <option value="vitamin_A">vitamin A</option>
+  </select>
+  
+  
+  
+    <div id="line"><canvas id="myChart"></canvas></div>
+    <div id="bar"><canvas id="myBar"></canvas></div>
+    
+
+    <select id="column-select2" >
+      <option value="default" selected>No Selection</option>
+      <option value="proteins">protein</option>
+      <option value="fat">fat</option>
+      <option value="carbs">carbs</option>
+      <option value="sugar">sugar</option>
+      <option value="cholestrol">cholestrol</option>
+      <option value="Iron">Iron</option>
+      <option value="vitamin_A">vitamin A</option>
+    </select>
+    <div id="dateid">
+      <label for="date">Enter Date:</label>
+      <input type="date" id="date" name="date">
+      <button type="submit" id="submitBtn">Submit</button>
+    </div>
+      
+    
+
+    <div id="line2"><canvas id="myChart2"></canvas></div>
+    <div id="bar2"><canvas id="myBar2"></canvas></div>
+  
+  <script>
+    const chartCanvas1 = document.getElementById('myChart');
+    const ctx1 = chartCanvas1.getContext('2d');
+    const chartCanvas2 = document.getElementById('myBar');
+    const ctx2 = chartCanvas2.getContext('2d');
+    
+    const columnSelect = document.getElementById('column-select');
+
+    // const form = document.querySelector('form');
+const dateinp = document.querySelector('#date');
+const columnSelect2 = document.getElementById('column-select2');
+const submitButton = document.querySelector('button[type="submit"]');
+const dateval = dateinp.value;
+  const chartCanvas3 = document.getElementById('myChart2');
+    const ctx3 = chartCanvas3.getContext('2d');
+    const chartCanvas4 = document.getElementById('myBar2');
+    const ctx4 = chartCanvas4.getContext('2d');
+  submitButton.addEventListener('click', function (event) {
+    event.preventDefault();
+  
+
+  
+
+  fetch(`/data2?date=${dateinp.value}`)
+  .then(response => response.json())
+  .then(data => {
+    // Do something with the data
+    console.log(data)
+    updateLineChart2(data, columnSelect2.value);
+        updateBarChart2(data, columnSelect2.value);
+
+        columnSelect2.addEventListener('change', () => {
+          updateLineChart2(data, columnSelect2.value);
+          updateBarChart2(data, columnSelect2.value);
+        });
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+  function updateLineChart2(data, column) {
+      const chartData = data.data.map(row => row[column]);
+      const chart = new Chart(ctx3, {
+        type: 'line',
+        data: {
+          labels: data.data.map(row=>row.food_name),
+          datasets: [
+            {
+              label: column,
+              data: chartData,
+              borderColor: 'blue',
+              fill: false
+            }
+          ]
+        }
+      });
+    }
+
+    function updateBarChart2(data, column) {
+      const chartData = data.data.map(row => row[column]);
+      const chart = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+          labels:  data.data.map(row=>row.food_name),
+          datasets: [
+            {
+              label: column,
+              data: chartData,
+              borderColor: 'green',
+              backgroundColor: 'red',
+              fill: true
+            }
+          ]
+        }
+    });
+    }
+
+  });
+
+
+    fetch('/data')
+      .then(response => response.json())
+      .then(data => {
+        updateLineChart(data, columnSelect.value);
+        updateBarChart(data, columnSelect.value);
+
+        columnSelect.addEventListener('change', () => {
+          updateLineChart(data, columnSelect.value);
+          updateBarChart(data, columnSelect.value);
+        });
+      })
+      .catch(error => console.error(error));
+
+
+      function updateLineChart(data, column) {
+      const chartData = data.data.map(row => row[column]);
+      const chart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: data.data.map(row=>row.date),
+          datasets: [
+            {
+              label: column,
+              data: chartData,
+              borderColor: 'blue',
+              fill: false
+            }
+          ]
+        }
+      });
+    }
+
+    function updateBarChart(data, column) {
+      const chartData = data.data.map(row => row[column]);
+      const chart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels:  data.data.map(row=>row.food_name),
+          datasets: [
+            {
+              label: column,
+              data: chartData,
+              borderColor: 'green',
+              backgroundColor: 'red',
+              fill: true
+            }
+          ]
+        }
+    });
+    }
+
+    
+
+    
+
+
+
+
+      
+  
+  </script>
+  
+</body>
+</html>

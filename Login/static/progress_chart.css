@@ -1,0 +1,373 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,700italic,400italic,600italic|Merriweather:400,700,400italic,700italic,900,900italic);
+.animate .item .donut.donut-100 svg .circle_animation {
+  -webkit-animation: donut-100 1s ease-out forwards;
+  animation: donut-100 1s ease-out forwards;
+}
+.animate .item .donut.donut-94 svg .circle_animation {
+  -webkit-animation: donut-94 1s ease-out forwards;
+  animation: donut-94 1s ease-out forwards;
+}
+.animate .item .donut.donut-83 svg .circle_animation {
+  -webkit-animation: donut-83 1s ease-out forwards;
+  animation: donut-83 1s ease-out forwards;
+}
+.animate .item .barchart .bar {
+  -webkit-animation: bar 1s ease-out forwards;
+  animation: bar 1s ease-out forwards;
+}
+
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.fact-carousel {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.fact-carousel .item {
+  background: #333;
+  height: 350px;
+  width: 250px;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin: 15px;
+}
+.fact-carousel .item.chart1 {
+  background: #17b3a4;
+}
+.fact-carousel .item.chart1::before {
+  background: #16ab9d;
+  border-bottom: 1px solid #169a8e;
+  content: "";
+  height: 50%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+.fact-carousel .item.chart1::after {
+  border-bottom: 1px solid #1dc8b8;
+  content: "";
+  height: 50%;
+  left: 0;
+  position: absolute;
+  top: 1px;
+  width: 100%;
+  z-index: 0;
+}
+.fact-carousel .item.chart1 .counter {
+  background: #62c7f9;
+}
+.fact-carousel .item.chart1 .counter h2 {
+  text-shadow: 4px 5px 0 #469edb;
+}
+.fact-carousel .item.chart1 .donut {
+  border: 5px solid #41c4b7;
+}
+.fact-carousel .item.chart1 .info {
+  text-shadow: 2px 2px 0 #169a8e;
+}
+.fact-carousel .item.chart2 {
+  background: #31b6ff;
+}
+.fact-carousel .item.chart2::before {
+  background: #2aadf5;
+  border-bottom: 1px solid #2398d9;
+  content: "";
+  height: 50%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+.fact-carousel .item.chart2::after {
+  border-bottom: 1px solid #5dc6ff;
+  content: "";
+  height: 50%;
+  left: 0;
+  position: absolute;
+  top: 1px;
+  width: 100%;
+  z-index: 0;
+}
+.fact-carousel .item.chart2 .bar {
+  background: #0e4f9b;
+}
+.fact-carousel .item.chart2 .counter {
+  background: #41c4b7;
+}
+.fact-carousel .item.chart2 .counter h2 {
+  text-shadow: 4px 5px 0 #169a8e;
+}
+.fact-carousel .item.chart2 .info {
+  text-shadow: 2px 2px 0 #469edb;
+}
+.fact-carousel .item.chart3 {
+  background: #ee7318;
+}
+.fact-carousel .item.chart3::before {
+  background: #e46f18;
+  border-bottom: 1px solid #d16514;
+  content: "";
+  height: 50%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+.fact-carousel .item.chart3::after {
+  border-bottom: 1px solid #fd862e;
+  content: "";
+  height: 50%;
+  left: 0;
+  position: absolute;
+  top: 1px;
+  width: 100%;
+  z-index: 0;
+}
+.fact-carousel .item.chart3 .donut {
+  border: 5px solid #ff9c00;
+}
+.fact-carousel .item.chart3 .counter {
+  background: #ff9c00;
+}
+.fact-carousel .item.chart3 .counter h2 {
+  text-shadow: 4px 5px 0 #d16514;
+}
+.fact-carousel .item.chart3 .info {
+  text-shadow: 2px 2px 0 #d16514;
+}
+.fact-carousel .item .title {
+  color: #fff;
+  font-family: merriweather;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 22px;
+  margin: 20px 40px;
+  text-align: center;
+  position: relative;
+  height: 2.2em;
+}
+.fact-carousel .item .info {
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  text-shadow: 2px 2px 0 #169a8e;
+}
+.fact-carousel .item .share {
+  left: 10px;
+  bottom: 10px;
+}
+.fact-carousel .item .donut {
+  box-sizing: unset;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 100%;
+  width: 140px;
+  height: 140px;
+  border: 5px solid #ccc;
+  margin: 25px auto;
+  z-index: 1;
+}
+.fact-carousel .item .donut svg {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}
+.fact-carousel .item .donut svg .circle_animation {
+  stroke-dasharray: 377;
+  stroke-dashoffset: 377;
+}
+.fact-carousel .item .barchart {
+  padding: 10px;
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.item .fact-carousel .item .barchart::before, .item .fact-carousel .item .barchart::after {
+  display: none;
+}
+.fact-carousel .item .barchart .key {
+  float: left;
+}
+.fact-carousel .item .barchart .key span {
+  display: block;
+  height: 20px;
+  width: 30px;
+  text-align: right;
+  color: #fff;
+  padding-right: 10px;
+  border-right: 1px solid #fff;
+}
+.fact-carousel .item .barchart .bars {
+  border-bottom: 1px solid #fff;
+  bottom: 10px;
+  left: 40px;
+  padding: 0 10px;
+  position: absolute;
+  overflow: hidden;
+}
+.fact-carousel .item .barchart .bars .bar {
+  width: 15px;
+  display: inline-block;
+  height: 10px;
+  margin: 0 5px -5px;
+  width: 15px;
+  position: relative;
+  bottom: 0;
+}
+.fact-carousel .item .barchart .bars .bar.bar1 {
+  height: 90px;
+}
+.fact-carousel .item .barchart .bars .bar.bar2 {
+  height: 30px;
+}
+.fact-carousel .item .barchart .bars .bar.bar3 {
+  height: 144px;
+}
+.fact-carousel .item .barchart .bars .bar.bar4 {
+  height: 180px;
+}
+.fact-carousel .item .barchart .bars .bar.bar5 {
+  height: 160px;
+}
+.fact-carousel .item .counter {
+  border-radius: 100%;
+  width: 160px;
+  height: 160px;
+  margin: 20px auto;
+  background: #ccc;
+  z-index: 1;
+  position: relative;
+}
+.fact-carousel .item .counter h2 {
+  font-size: 60px;
+  line-height: 110px;
+  width: 160px;
+}
+.fact-carousel .item h2 {
+  font-family: open sans;
+  font-style: italic;
+  text-align: center;
+  position: absolute;
+  line-height: 90px;
+  width: 100%;
+  font-size: 30px;
+  color: #fff;
+  z-index: 99;
+}
+.fact-carousel .no-smil .item .donut {
+  animation: ie-donut 1s ease forwards;
+  -ms-animation: ie-donut 1s ease forwards;
+  -webkit-animation: ie-donut 1s ease forwards;
+}
+.fact-carousel .no-smil .item .donut h2 {
+  transform: rotate(-360deg);
+}
+.fact-carousel .no-smil .item .donut svg .circle_animation {
+  stroke-dasharray: 377;
+  stroke-dashoffset: 36;
+}
+
+@-webkit-keyframes donut-100 {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes donut-100 {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes donut-94 {
+  to {
+    stroke-dashoffset: 23;
+  }
+}
+@keyframes donut-94 {
+  to {
+    stroke-dashoffset: 23;
+  }
+}
+@-webkit-keyframes donut-83 {
+  to {
+    stroke-dashoffset: 64;
+  }
+}
+@keyframes donut-83 {
+  to {
+    stroke-dashoffset: 64;
+  }
+}
+@keyframes ie-donut {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@-webkit-keyframes ie-donut {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes bar {
+  from {
+    height: 0;
+  }
+}
+@-webkit-keyframes bar {
+  from {
+    height: 0;
+  }
+}
+.share {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  background: #2ea2e1;
+  color: white;
+  border-radius: 2px;
+  padding: 5px 15px;
+  font-family: merriweather;
+  cursor: pointer;
+}
+.share div {
+  display: inline-block;
+}
+
+#download-button {
+  position: absolute; /* position the button */
+  top: 0; /* align the button to the top of the page */
+  right: 0; /* align the button to the right of the page */
+  background-color: #007bff; /* blue background color */
+  color: white; /* white text color */
+  padding: 10px 20px; /* add some padding to the button */
+  border: none; /* remove the button border */
+  border-radius: 5px; /* add rounded corners to the button */
+  font-size: 16px; /* set the font size */
+  cursor: pointer; /* set the cursor to a hand */
+}
+
+#download-button:hover {
+  background-color: #0062cc; /* darker blue background color on hover */
+}

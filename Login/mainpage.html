@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  .topnav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  </style>
+  </head>
+  <body>
+  
+  <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#news">Info</a>
+    <a href="#contact">Contact</a>
+    <a href="/jump" onclick="jump()">Login/Register</a>
+  </div>
+  
+  <meta charset="UTF-8">
+  <title>Diet Monitor</title>
+  <link rel='stylesheet' href='https://cdn.rawgit.com/filipelinhares/ress/master/dist/ress.min.css'>
+  <link rel="stylesheet" href="./mainpage.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- Page Wrap -->
+<div class="page-wrap">
+
+  <div id="home-slider">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide swiper-slide-one">
+          <div class="swiper-image" data-swiper-parallax-y="-20%">
+            <div class="swiper-image-inner swiper-image-left swiper-image-one">
+              <h1> <span class="emphasis">Diet Monitor</span>... <br><span>for Nutrient Tracking.</span></h1>
+              <p>Arya Adesh & Chirayu S</p>
+            </div>
+          </div>
+          <div class="swiper-image" data-swiper-parallax-y="35%">
+            <div class="swiper-image-inner swiper-image-right swiper-image-two">
+              <p class="paragraph">
+                Tracking your food is a powerful tool to help you make informed decisions about your health.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide swiper-slide-two">
+          <div class="swiper-image" data-swiper-parallax-y="-20%">
+            <div class="swiper-image-inner swiper-image-left swiper-image-three">
+              <h1>Let <span class="emphasis">Food</span>. <br><span> be thy medicine</span></h1>
+              <p>Hippocrates</p>
+            </div>
+          </div>
+          <div class="swiper-image" data-swiper-parallax-y="35%">
+            <div class="swiper-image-inner swiper-image-right swiper-image-four">
+              <p class="paragraph">
+                Food is not just fuel, it's information. It talks to your DNA and tells it what to do <br>
+                -Dr. Mark Hyman
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide swiper-slide-three">
+          <div class="swiper-image" data-swiper-parallax-y="-20%">
+            <div class="swiper-image-inner swiper-image-left swiper-image-five">
+              <h1>Good <span class="emphasis">Food</span>. <br><span>is the foundation of genuine happiness</span></h1>
+              <p>Diet Monitoring</p>
+            </div>
+          </div>
+          <div class="swiper-image" data-swiper-parallax-y="35%">
+            <div class="swiper-image-inner swiper-image-right swiper-image-six">
+              <p class="paragraph">
+                Diet monitoring is the practice of observing and recording the food and drink that an individual consumes on a regular basis. 
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js'></script>
+<script>
+  var mySwiper = new Swiper(".swiper-container", {
+  direction: "vertical",
+  loop: true,
+  pagination: ".swiper-pagination",
+  grabCursor: true,
+  speed: 1000,
+  paginationClickable: true,
+  parallax: true,
+  autoplay: false,
+  effect: "slide",
+  mousewheelControl: 1
+});
+function jump() {
+  window.location.href = "/jump";
+}
+</script>
+
+</body>
+</html>

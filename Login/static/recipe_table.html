@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Food Table</title>
+  <link rel="stylesheet" href="./recipe_table.css">
+
+</head>
+<body>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Table Style</title>
+	<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+</head>
+
+<body>
+<div class="table-title">
+<h3>Food Data Table</h3>
+<p>Select date:</p>
+      <input type="date" name="date" id="date">
+        <button type="submit">Submit</button>
+</div>
+<table class="table-fill">
+<thead>
+<tr>
+  <th class="text-left">Food</th>
+  <th class="text-left">Quantity</th>
+  <th class="text-left">Measure</th>
+  <th class="text-left">Weight (g)</th>
+  <th class="text-left">Time</th>
+  
+</tr>
+</thead>
+<tbody class="table-hover">
+
+
+  <script>
+    const dateInput = document.querySelector('#date');
+  const submitButton = document.querySelector('button[type="submit"]');
+  submitButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    document.querySelector('.table-hover').innerHTML = '';
+    fetch(`/timeline2?date=${dateInput.value}`)
+      .then(response => response.json())
+      .then(results => {
+        // Loop through the results and append the date and description to the webpage
+        results.forEach(function (row) {
+          const timelineItem = document.createElement('tr');
+          timelineItem.innerHTML = `
+              <tr>
+              <td class="text-left">${row.food_name}</td>
+              <td class="text-left">${row.quantity}</td>
+              <td class="text-left">${row.unit}</td>
+              <td class="text-left">${row.weight}</td>
+              <td class="text-left">${row.hours}:${row.min}</td>
+              </tr>
+          `;
+          document.querySelector('.table-hover').appendChild(timelineItem);
+        });
+
+        if(results.length == 0)
+        {
+          document.querySelector('.table-hover').innerHTML = '<h3><center>❌ No data available ❌</center></h3>';
+        }
+      });
+
+    });
+  </script>
+</tbody>
+</table>
+  </body>
+<!-- partial -->
+  
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Trello - To do list - draggable- interactive pen - Task Management UI</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://pro.fontawesome.com/releases/v5.10.0/css/all.css'>
+<link rel="stylesheet" href="queries.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="main-page">
+  <div class="left-nav">
+    <div class="left-nav-item">
+      <i class="fas fa-columns left-nav-icon" onclick="loadPage(0)"></i>
+      <i class="fas fa-plus left-nav-icon" onclick="loadPage(1)"></i>
+      <i class="fas fa-chart-pie left-nav-icon" onclick="loadPage(2)"></i>
+    </div>
+  </div>
+  <div class="main" id="main-0">
+    <div class="content">
+      <h1 class="text-center">To Do List</h1>
+      <!--entête-->
+      <div class="mb-3">
+        <span class="btn-icon">
+          <button class="btn btn-danger btn-icon"><i class="fas fa-plus icon-btn"></i>&nbsp;Ajouter</button>
+        </span>
+      </div>
+      <!--tableau-->
+      <span id="tab">
+        <div class="row">
+          <div class="col" data-col-num="1">
+            <div class="card card-col">
+              <div class="card-body noPadding">
+                <input type="text" class="text-center title-col form-control-lg" value="Titre 1" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col" data-col-num="2">
+            <div class="card card-col">
+              <div class="card-body noPadding">
+                <input type="text" class="text-center title-col form-control-lg" value="Titre 2" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col" data-col-num="3">
+            <div class="card card-col">
+              <div class="card-body noPadding">
+                <input type="text" class="text-center title-col form-control-lg" value="Titre 3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" ondrop="drop(event)" ondragover="allowDrop(event)" id="col1">
+            <div class="card card-col" draggable="true" ondragstart="drag(event)" id="cel1" onclick="openModalCard(event)">
+              <div class="card-body">
+                <div class="card-action">
+                  <h6 class="card-title" contenteditable onclick="event.stopPropagation();">
+                    Card title
+                  </h6>
+                  <div class="dropdown">
+                    <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                        <div class="delet-btn" onclick="deletCard(event)">
+                          &nbsp;<i class="fas fa-trash-alt i"></i> Suppression
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="card-text fs-6 full-content-text">Some quick example text to build on the card title and make up the bulk of the card's content.</span>
+                <p class="small-content-text">
+                  Some quick example text to build on the card title...
+                </p>
+              </div>
+            </div>
+            <div class="card card-col" onclick="addCard(event)" data-col="1">
+              <div class="card-body new-col">
+                <i class="fas fa-plus text-center"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="col2" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="card card-col" draggable="true" ondragstart="drag(event)" id="cel2" onclick="openModalCard(event)">
+              <div class="card-body">
+                <div class="card-action">
+                  <h6 class="card-title" contenteditable onclick="event.stopPropagation();">
+                    Card title
+                  </h6>
+                  <div class="dropdown">
+                    <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                        <div class="delet-btn" onclick="deletCard(event)">
+                          &nbsp;<i class="fas fa-trash-alt i"></i> Suppression
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="card-text fs-6 full-content-text">Some quick example text to build on the card title and make
+                  up the bulk of the card's content.</span>
+                <p class="small-content-text">
+                  Some quick example text to build on the card title...
+                </p>
+              </div>
+            </div>
+            <div class="card card-col" draggable="true" ondragstart="drag(event)" id="cel3" onclick="openModalCard(event)">
+              <div class="card-body">
+                <div class="card-action">
+                  <h6 class="card-title" contenteditable onclick="event.stopPropagation();">
+                    Card title
+                  </h6>
+                  <div class="dropdown">
+                    <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                        <div class="delet-btn" onclick="deletCard(event)">
+                          &nbsp;<i class="fas fa-trash-alt i"></i> Suppression
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="card-text fs-6 full-content-text">Some quick example text to build on the card title and make
+                  up the bulk of the card's content.</span>
+                <p class="small-content-text">
+                  Some quick example text to build on the card title...
+                </p>
+              </div>
+            </div>
+            <div class="card card-col" onclick="addCard(event)" data-col="2">
+              <div class="card-body new-col">
+                <i class="fas fa-plus text-center"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col" data-col-num="3" ondrop="drop(event)" ondragover="allowDrop(event)" id="col3">
+            <div class="card card-col" draggable="true" ondragstart="drag(event)" id="cel4" onclick="openModalCard(event)">
+              <div class="card-body">
+                <div class="card-action">
+                  <h6 class="card-title" contenteditable onclick="event.stopPropagation();">
+                    Card title
+                  </h6>
+                  <div class="dropdown">
+                    <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                        <div class="delet-btn" onclick="deletCard(event)">
+                          &nbsp;<i class="fas fa-trash-alt i"></i> Suppression
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="card-text fs-6 full-content-text">Some quick example text to build on the card title and make
+                  up the bulk of the card's content.</span>
+                <p class="small-content-text">
+                  Some quick example text to build on the card title...
+                </p>
+              </div>
+            </div>
+            <div class="card card-col" draggable="true" ondragstart="drag(event)" id="cel5" onclick="openModalCard(event)">
+              <div class="card-body">
+                <div class="card-action">
+                  <h6 class="card-title" contenteditable onclick="event.stopPropagation();">
+                    Card title
+                  </h6>
+                  <div class="dropdown">
+                    <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                        <div class="delet-btn" onclick="deletCard(event)">
+                          &nbsp;<i class="fas fa-trash-alt i"></i> Suppression
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span class="card-text fs-6 full-content-text">Some quick example text to build on the card title and make
+                  up the bulk of the card's content.</span>
+                <p class="small-content-text">
+                  Some quick example text to build on the card title...
+                </p>
+              </div>
+            </div>
+            <div class="card card-col" data-col="3" onclick="addCard(event)">
+              <div class="card-body new-col">
+                <i class="fas fa-plus text-center"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="main d-none" id="main-1">
+    <div class="content">
+      <h1 class="text-center">Type</h1>
+      <div class="row">
+        <div class="col text-center">
+          <label for="nameType" class="form-label">Nom du nouveau type</label>
+          <input type="email" class="form-control " id="nameType" aria-describedby="nameType" placeholder="dev" onkeyup="changeDemoText(event)" />
+        </div>
+        <div class="col text-center">
+          <label for="bck-color" class="form-label">Couleur du fond</label>
+          <input type="color" class="form-control form-control-color align-margin" id="bck-color" value="#d6ede2" title="Couleur du fond" />
+        </div>
+        <div class="col text-center">
+          <label for="color-for-texte" class="form-label">Couleur du texte</label>
+          <input type="color" class="form-control form-control-color align-margin" id="color-for-texte" value="#13854e" title="Couleur du texte" />
+        </div>
+      </div>
+      </form>
+
+      <h5 class=" text-center mt-5">Aperçu : </h5>
+      <div class="card card-col " id="demo-card">
+        <div class="card-body">
+          <div class="card-action">
+            <h6 class="card-title">
+              Card title
+            </h6>
+            <div class="dropdown">
+              <i class="fas fa-ellipsis-v"></i>
+            </div>
+          </div>
+          <span class="card-text fs-6 full-content-text">Some quick example text to build on the card title and make
+            up the bulk of the card's content.</span>
+          <p class="small-content-text">
+            Some quick example text to build on the card title...
+          </p>
+          <span class="badge" style="background-color:#d6ede2;color:#13854e;" id=demoType>dev</span>
+        </div>
+      </div>
+      <div class="mb-3 btn ">
+        <span class="btn-icon">
+
+          <button class="btn btn-danger btn-icon" id=btn-Type onclick="addType()"><i class="fas fa-plus icon-btn"></i>&nbsp;Ajouter</button>
+        </span>
+      </div>
+
+    </div>
+  </div>
+  <div class="main d-none" id="main-2"></div>
+</div>
+
+<div class="modal fade" id="modal-card" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title" contenteditable=""></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Descritpion :</h6>
+        <div id="modal-content" contenteditable></div>
+        <div>
+          <br />
+          <h6>Selection du type :</h6>
+          <select class="form-select" aria-label="Default select example" id="select-type"></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" onclick="saveModifCard()">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<span id=toast></span>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js'></script>
+<script  src="queries.js"></script>
+
+</body>
+</html>

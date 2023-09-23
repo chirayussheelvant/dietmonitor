@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>SecretMenu</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Recipe Lookup</title>
+    <style>
+      .card {
+        width: 100%;
+      }
+      .card-title {
+        padding-left: 24px;
+        padding-top: 12px;
+      }
+      .grid {
+        padding-top: 2em;
+      }
+      .container {
+        padding-top: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        display: block;
+        align-content: flex-start;
+      }
+      .btn-primary {
+        color: white;
+      }
+    </style>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bootstrap 101 Template</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>Recipe Lookup</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1>Recipe Lookup</h1>
+            <form id="search-box">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="search" id="search">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- <script src="js/bootstrap.min.js"></script> -->
+        <div class="container">
+          <div id="recipe-here" class="row"></div>
+          </div>
+        </div>
+        <script src="recipeAPI.js"></script>
+
+    </body>
+
+    </html>
+<!-- partial -->
+  <script>
+    $("#search-box").submit(function(event) {
+	// Get the search data from the form
+	var searchText = $("#search").val();
+  var maxResults = 15;
+	// Debugging, log what we are looking for
+	// console.log("Searching for " + searchText);
+
+	// Performing GET requests to the recipe API and logging the responses to the console    
+	$.ajax({
+			url: "https://api.edamam.com/search?q=" + searchText + "&to=" + maxResults + "&app_id=a5adb2d9&app_key=bbbb6d6a60ed99b20528ac9c372c5a9c",
+			method: "GET"
+	}).done(function(response) {
+			// console.log(response);
+
+			// Storing the data from the AJAX request in the results variable
+			var results = response.hits;
+
+			results.forEach( function(recipe) {
+				console.log(recipe)
+				var columnDiv = $("<div>").addClass("grid col-lg-4 col-md-6");
+				var cardDiv = $("<div>").addClass("card");
+				var image = $("<img>").attr("src", recipe.recipe.image);
+				image.addClass("card-img-top");
+				var cardTitle = $("<h3>").text(recipe.recipe.label).addClass("card-title");
+				var list = $("<ul>").addClass("list-group list-group-flush");
+				recipe.recipe.ingredientLines.forEach(function(line) {
+					var il = $("<il>").text(line).addClass("list-group-item");
+					list.append(il);
+				});
+				var btn = $("<a></a>").addClass("btn btn-primary").attr("href", recipe.recipe.url).attr("target", "_blank").text("more details");
+
+				cardDiv.append(image).append(cardTitle).append(list).append(btn);
+				columnDiv.append(cardDiv);
+				$("#recipe-here").prepend(columnDiv);
+			});
+
+			
+
+			// for (var i = 0; i < results.length; i++) {
+
+			// 		// Creating and storing a div tag
+			// 		var recipeDiv = $("<div>");
+
+			// 		// Creating and storing an image tag
+			// 		var recipeImage = $("<img>");
+
+			// 		// Setting the src attribute of the image to a property pulled off the result item
+			// 		recipeImage.attr("src", results[i].recipe.image);
+
+			// 		// Creating and storing recipe in a paragraph
+			// 		var recipeList = $("<p>").text("Recipe: " + results[i].recipe.label);
+
+			// 		// Creating and storing nutrient list in a paragraph
+			// 		var nutrientList = $("<p>").text(results[i].recipe.healthLabels);
+
+			// 		//Prep instructions
+			// 		var prepInstructions = $("<p>").text(results[i].recipe.url);
+
+
+			// 		// Appending the paragraph and image tag to the recipeDiv
+			// 		recipeDiv.append(recipeList);
+			// 		recipeDiv.append(prepInstructions);
+			// 		recipeDiv.append(nutrientList);
+			// 		recipeDiv.append(recipeImage);
+
+			// 		// Creating element for ingredients
+			// 		var ingredientInfo = results[i].recipe.ingredientLines;
+			// 		for (var j = 0; j < ingredientInfo.length; j++) {
+			// 				recipeDiv.append($("<p>").text(ingredientInfo[j]));
+			// 		}
+
+
+
+			// 		// Prependng the recipe to the HTML page in the "#recipe-here" div
+			// 		$("#recipe-here").prepend(recipeDiv);
+			// }
+
+	});
+
+	// Prevents the page from reloading after the AJAX call.
+	event.preventDefault();
+});
+
+var map;
+var infowindow;
+var restaurants = [];
+
+var restaurantName;
+var restaurantAddress;
+var restaurantRating;
+var restaurantPrice;
+
+var groupName;
+var groupDate;
+var groupParticipants;
+var groupTime;
+var groupTheme;
+
+
+
+
+$(".overlay").hide();
+
+function initMap() {
+	var pyrmont = { lat: 41.896294, lng: -87.618799 };
+
+	map = new google.maps.Map(document.getElementById('map'), {
+			center: pyrmont,
+			zoom: 15
+	});
+
+	infowindow = new google.maps.InfoWindow();
+	var service = new google.maps.places.PlacesService(map);
+	service.nearbySearch({
+			location: pyrmont,
+			radius: 800,
+			type: ['restaurant']
+	}, callback);
+}
+
+function callback(results, status) {
+	if (status === google.maps.places.PlacesServiceStatus.OK) {
+			for (var i = 0; i < results.length; i++) {
+					var label0 = i + 1;
+					var label = label0.toString();
+					var id = "restaurant" + label;
+
+					createMarker(results[i], label);
+
+					$("#well").append(
+							"<h2>" + label + ": " + results[i].name + "</h2>" +
+							"<p><strong>Rating: </strong>" + results[i].rating + "</p>" +
+							"<p><strong>Price Level: </strong>" + results[i].price_level + "</p>" +
+							"<p><strong>Address: </strong>" + results[i].vicinity + "</p>" +
+							"<button id='" + id + "'>Select Restaurant</button>" +
+							"<br>");
+
+					createClickEvent(id, i);
+
+					updateRestaurantsList(results[i]);
+			}
+	}
+}
+
+function createMarker(place, label) {
+	var placeLoc = place.geometry.location;
+	var marker = new google.maps.Marker({
+			map: map,
+			position: place.geometry.location,
+			label: label
+	});
+
+	google.maps.event.addListener(marker, 'click', function() {
+			infowindow.setContent(place.name);
+			infowindow.open(map, this);
+	});
+}
+
+function createClickEvent(id, i) {
+	$("#" + id).on("click", function() {
+			$(".overlay").show();
+
+			restaurantName = restaurants[i].name;
+			restaurantAddress = restaurants[i].address;
+			restaurantRating = restaurants[i].rating;
+			restaurantPrice = restaurants[i].price;
+
+			console.log(restaurantName, restaurantAddress, restaurantRating, restaurantPrice);
+
+	});
+}
+
+
+function updateRestaurantsList(results) {
+	restaurants.push({
+			"name": results.name,
+			"rating": results.rating,
+			"price": results.price_level,
+			"address": results.vicinity
+	});
+}
+
+
+$("#createGroupBtn").on("click", function(event) {
+
+	event.preventDefault();
+
+	groupName = $("#groupName").val();
+	groupDate = $("#groupDate").val();
+	groupParticipants = $("#groupParticipants").val();
+	groupTime = $("#groupTime").val();
+	groupTheme = $("#groupTheme").val();
+
+	// window.location.href = "myGroups.html";
+
+	console.log(groupName, groupDate, groupParticipants, groupTime, groupTheme);
+
+});
+  </script>
+
+</body>
+</html>

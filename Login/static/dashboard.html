@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Diet Monitor </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./dashboard.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<header class="header">
+	<div class="header-content responsive-wrapper">
+		<div class="header-logo">
+			<a href="#" class="ref">
+				<div>
+					<!-- <img src="https://assets.codepen.io/285131/untitled-ui-icon.svg" /> -->
+					Diet Monitor
+				</div>
+				
+			</a>
+		</div>
+		<div class="header-navigation">
+			<nav class="header-navigation-links">
+				<a href="#"> Home </a>
+				<!-- <a href="./nutrient_cards.html"> Dashboard </a> -->
+				<a href="progress_chart.html"> Progress Report </a>
+				<a href="recipe_table.html"> Food Table </a>
+				<a href="faq.html"> FAQs </a>
+				<button onclick="callNodeFunction()">Load data</button>
+				<script>
+				
+				  function callNodeFunction() {
+      			fetch("/myFunction")
+                  .then(response => response.text())
+                   .then(data => console.log(data))
+                     .catch(error => console.error(error));
+                   }
+				</script>
+			</nav>
+			<div class="header-navigation-actions">
+				
+				<a href="#" class="icon-button">
+					<i class="ph-gear-bold"></i>
+				</a>
+				<a href="#" class="icon-button">
+					<i class="ph-bell-bold"></i>
+				</a>
+				<a href="#" class="avatar">
+					<img src="im4.png" />
+				</a>
+			</div>
+		</div>
+		<a href="#" class="button">
+			<i class="ph-list-bold"></i>
+			<span>Menu</span>
+		</a>
+	</div>
+</header>
+<main class="main">
+	<div class="responsive-wrapper">
+		
+		<div class="content-header">
+			<div class="content-header-intro">
+				<h2>Welcome to Diet Monitor</h2>
+				<p>One stop solution to track Daily nutient intake</p>
+			</div>
+			<div class="content-header-actions">
+				<a href="#" class="button">
+					<i class="ph-faders-bold"></i>
+					<span>Filters</span>
+				</a>
+				<a href="select_input.html" class="button">
+					<i class="ph-plus-bold"></i>
+					<span>Input data</span>
+				</a>
+			</div>
+		</div>
+		<div class="content">
+			<div class="content-panel">
+				<div class="vertical-tabs">
+					
+					<a href="manual_entry.html">Manual Entry</a>
+					<a href="health_info.html">Health Information</a>
+					<a href="Medicine.html">Diet To-Do List</a>
+					<!-- <a href="dietician.html">Browser tools</a> -->
+					<a href="./recipe_name_search.html">Recipe search by name</a>
+					<a href="recipe_ingred_search.html">Recipe Search by ingredient</a>
+					<!-- <a href="diet_chart1.html">Diet Chart</a> -->
+					
+				</div>
+			</div>
+			<div class="content-main">
+				<div class="card-grid">
+					<article class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="https://cdn-icons-png.flaticon.com/512/2927/2927347.png" /></span>
+								<h3>Food database</h3>
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<p>Get information about food consumed according to dates</p>
+						</div>
+						<div class="card-footer">
+							<a href="nutrient_landing.html">View</a>
+						</div>
+					</article>
+					<article class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="nut_icon.png" /></span>
+								<h3>Nutreint database</h3>
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<p>Get information about daily nutrient intake</p>
+						</div>
+						<div class="card-footer">
+							<a href="diet_landing.html">View</a>
+						</div>
+					</article>
+					<article class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="doc.png" /></span>
+								<h3>Statistics</h3>
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<p>Graps and charts for requirent targets for nutreints</p>
+						</div>
+						<div class="card-footer">
+							<a href="diet_chart1.html">View</a>
+						</div>
+					</article>
+					<article class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="checklist.png" /></span>
+								<h3>Connect-for-Diet</h3>
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<p>Connect with dietician</p>
+						</div>
+						<div class="card-footer">
+							<a href="recipe_landing.html">View</a>
+						</div>
+					</article>
+					<article class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="profile.png" /></span>
+								<h3>Plan a diet</h3>
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<p>Design Diet based on requirements </p>
+						</div>
+						<div class="card-footer">
+							<a href="#">View</a>
+						</div>
+					</article>
+					<article class="card">
+						<div class="card-header">
+							<div>
+								<span><img src="https://assets.codepen.io/285131/slack.svg" /></span>
+								<h3>Others</h3>
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<p>Alexa integration, APIs and Other integrations</p>
+						</div>
+						<div class="card-footer">
+							<a href="">View </a>
+						</div>
+					</article>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<!-- partial -->
+  <script src='https://unpkg.com/phosphor-icons'></script>
+  <script  src="./script.js"></script>
+
+</body>
+</html>

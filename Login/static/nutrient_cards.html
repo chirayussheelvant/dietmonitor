@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>nutrient</title>
+  <link rel="stylesheet" href="./nutrient_cards.css">
+
+</head>
+<body>
+
+    
+<div class="container">
+    <div class="inner-container">          
+        <div class="card inactive-1"></div>
+        <div class="card inactive-2"></div>
+        <div class="card">
+            <div class="content active">
+                <h1 id="step-title-1">Calories</h1>
+                <p id="step-desc-1"></p>
+                <a class="button" href="#">Next Carbohydrates &rarr;</a>
+            </div>
+            <div class="content">
+                <h1 id="step-title-2">Carbohydrates</h1>
+                <p id="step-desc-2"></p>
+                <a class="button" href="#">Next Fats &rarr;</a>
+            </div>
+            <div class="content">
+                <h1 id="step-title-3">Fats</h1>
+                <p id="step-desc-3"></p>
+                <a class="button" href="#">Next Proteins &rarr;</a>
+            </div>
+            <div class="content">
+                <h1 id="step-title-4">Proteins</h1>
+                <p id="step-desc-4"></p>
+                <a class="button" href="#">Next fiber &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-5">Fiber</h1>
+                <p id="step-desc-5"></p>
+                <a class="button" href="#">Next sugar &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-6">Sugar</h1>
+                <p id="step-desc-6"></p>
+                <a class="button" href="#">Next cholestrol &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-7">Cholestrol</h1>
+                <p id="step-desc-7"></p>
+                <a class="button" href="#">Next sodium &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-8">Sodium</h1>
+                <p id="step-desc-8"></p>
+                <a class="button" href="#">Next potassium &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-9">Potassium</h1>
+                <p id="step-desc-9"></p>
+                <a class="button" href="#">Next Iron &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-10">Iron</h1>
+                <p id="step-desc-10"></p>
+                <a class="button" href="#">Next Calcium &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-11">Calcium</h1>
+                <p id="step-desc-11"></p>
+                <a class="button" href="#">Next Vitamin A &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-12">Vitamin A</h1>
+                <p id="step-desc-12"></p>
+                <a class="button" href="#">Next vitamin C &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-13">Vitamin C</h1>
+                <p id="step-desc-13"></p>
+                <a class="button" href="#">Next vitamin B2 &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-14">Vitamin B2</h1>
+                <p id="step-desc-14"></p>
+                <a class="button" href="#">Next Water &rarr;</a>
+            </div>
+
+            <div class="content">
+                <h1 id="step-title-15">Water</h1>
+                <p id="step-desc-15"></p>
+                <a class="button" href="#">Go back</a>
+            </div>
+
+
+
+            <div class="progress-container">
+                <div class="step"></div>
+            </div>
+        </div>
+    </div>
+     <h3>Select date:</h3>
+    <input type="date" name="date" id="date">
+    <button type="submit">Submit</button>
+</div> 
+
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script>
+
+        $(document).ready(function() {
+        
+        var content = $('.content');
+        var currentItem = content.filter('.active');
+        var steps = $('.card').filter('.steps');
+        //   var inactive1 = $('.inactive-1');
+        //   var inactive2 = $('.inactive-2');
+
+        $('.button').click(function() {
+            var nextItem = currentItem.next();
+            var lastItem = content.last();
+            var contentFirst = content.first();
+            
+            currentItem.removeClass('active');
+
+            
+                currentItem = nextItem.addClass('active');
+                $('.step').animate({width: '100%'});
+                inactive1.animate({height: '0', marginLeft:'0px', marginRight:'0px'}, 100);
+            
+        });
+
+        });
+
+    
+    const dateInput = document.querySelector('#date');
+    const submitButton = document.querySelector('button[type="submit"]');
+    submitButton.addEventListener('click', function (event) {
+        event.preventDefault();
+    const fetchNutrientInformation = async () => {
+    const response = await fetch(`/api/nutrient-information?date=${dateInput.value}`);
+    const nutrientData = await response.json();
+    // Get all the content divs
+    const calo = document.getElementById('step-desc-1');
+    const carb = document.getElementById('step-desc-2');
+    const fat = document.getElementById('step-desc-3');
+    const prot = document.getElementById('step-desc-4');
+    const fiber = document.getElementById('step-desc-5');
+    const sug = document.getElementById('step-desc-6');
+    const chol = document.getElementById('step-desc-7');
+    const na = document.getElementById('step-desc-8');
+    const k = document.getElementById('step-desc-9');
+    const fe = document.getElementById('step-desc-10');
+    const ca= document.getElementById('step-desc-11');
+    const vita = document.getElementById('step-desc-12');
+    const vitc = document.getElementById('step-desc-13');
+    const vitb = document.getElementById('step-desc-14');
+    const water = document.getElementById('step-desc-15');
+
+
+
+  // Loop through each content div and display the information
+  var i;
+   for(i=0;i<Object.keys(nutrientData).length;i++)
+    {
+        calo.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} cal) : ${nutrientData[i].calories}  g</p>`;
+        carb.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} g) : ${nutrientData[i].carbs}  g</p>`;
+        fat.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} g) : ${nutrientData[i].fat}  g</p>`;
+        prot.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} g)  : ${nutrientData[i].proteins}  g</p>`;
+        fiber.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].fiber}  g</p>`;
+        sug.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} g) : ${nutrientData[i].sugar}  g</p>`;
+        chol.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].cholestrol}  g</p>`;
+        na.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].sodium}  mg</p>`;
+        k.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].potassium}  mg</p>`;
+        fe.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].Iron}  mg</p>`;
+        ca.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].calcium}  mg</p>`;
+        vita.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].vitamin_A}  mg</p>`;
+        vitc.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].Vitamin_C}  mg</p>`;
+        vitb.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} mg) : ${nutrientData[i].Vitamin_B2}  mg</p>`;
+        water.innerHTML+= `<p>${nutrientData[i].food_name}  (${nutrientData[i].weight} g) : ${nutrientData[i].water}  g</p>`;
+
+}
+
+}
+
+
+// Call the function to fetch and display the information
+fetchNutrientInformation();
+});
+
+
+
+// $(document).ready(function() {
+  
+//   var content = $('.content');
+//   var currentItem = content.filter('.active');
+//   var steps = $('.card').filter('.steps');
+
+
+//   $('.button').click(function() {
+//       var nextItem = currentItem.next();
+//       var lastItem = content.last();
+//       currentItem.removeClass('active');
+      
+//       if (nextItem.length) {
+//         nextItem.addClass('active');
+//         currentItem = nextItem;
+//       } else {
+//         currentItem = content.first();
+//         currentItem.addClass('active');
+//       }
+      
+//       // Check if the active content is nutrient-info and call fetchNutrientInformation function
+//       if (currentItem.attr("id") == "nutrient-info2") {
+//         fetchNutrientInformation();
+//       }
+      
+//     //   // Call fetchNutrientInformation for nutrient-info2
+//     //   if (currentItem.attr("id") == "nutrient-info2") {
+//     //     fetchNutrientInformation();
+//     //   }
+//   });
+// });
+
+
+// const fetchNutrientInformation =  async () => {
+//                 const response =  await fetch('/api/nutrient-information');
+//                 const nutrientData =  await response.json();
+
+//                 return nutrientData[0].food_name;}
+
+                
+
+
+</script>
+
+</body>
+</html>

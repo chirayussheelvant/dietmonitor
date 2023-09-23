@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Simple Example to fetch, filter and Search data with Authors API in Javascript</title>
+  <link rel="stylesheet" href="./style3.css">
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <section>
+            <h1>List of Authors</h1>
+            <div class="search-wrap">
+                <input type="search" placeholder="Enter email to search" / id="search-box">
+                <button type="submit" onclick="showResults()">Search</button>
+            </div>
+            <div class="authors-wrap">
+                <ul class="filters">
+                    <li>
+                        <span>Select Gender: </span>
+                        <select id="select">
+                            <option id="male" value="male">male</option>
+                            <option id="female" value="female">female</option>
+                            <option id="all" value="all">all</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>What is Your Favorite country?</span>
+                        <fieldset>
+                            <div>
+                                <input type="checkbox" name="acs" value="Germany" id="ger"><label for="ger">Germany</label></input>  
+                            </div>   
+                            <div>
+                                <input type="checkbox" name="acs" value="Turkey" id="tur"><label for="tur">Turkey</label></input>
+                            </div>      
+                            <div>
+                                <input type="checkbox" name="acs" value="Australia" id="aus"><label for="aus">Australia</label></input>
+                            </div>
+                        </fieldset>  
+                    </li>
+                    <li>
+                        <button type="submit" onclick="filter()"> Apply Filters </button>
+                        <input type="button" value="Reload Page" onClick="window.location.reload(true)">  
+                    </li>
+                </ul>
+                <ul id="authors" class="authors-list"></ul>
+            </div>
+        </section>
+         
+    </body>
+    
+</html>
+<!-- partial -->
+  <script>
+
+const ul = document.getElementById("authors");
+function createNode(element) {
+	return document.createElement(element);
+}
+function append(parent, el) {
+	return parent.appendChild(el);
+}
+window.onload = fetch('/authors');
+var datum = [];
+
+function fetchData(url) {
+	var data = "";
+	fetch(url)
+		.then((resp) => resp.json())
+		.then(function (data) {
+			data = displayData(data.results);
+			return data;
+		})
+		.catch(function (error) {
+			return data;
+		});
+}
+
+function displayData(authors) {
+	return authors.map(function (author, index) {
+    let li = createNode("li"),
+      figure = createNode("figure");
+    
+    // Set the src attribute to an empty string or a default image
+    img.src = "";
+    let strong = createNode("strong");
+    let span = createNode("span");
+    let address = createNode("address");
+    let a = createNode("a");
+    let addBtn = createNode("a");
+
+    strong.innerHTML = `${author.name.first} ${author.name.last}`;
+    span.innerHTML = `${author.dob.age} ${author.gender}`;
+    a.innerHTML = `${author.email}`;
+    a.setAttribute("href", `${author.email}`);
+    address.innerHTML = `${author.location.city}, ${author.location.state} , ${author.location.country}, ${author.location.postcode} `;
+
+    // Do not append the img element to the figure element
+    // append(figure, img);
+    append(figure, strong);
+    append(figure, span);
+    append(li, figure);
+    append(li, address);
+    append(li, a);
+    append(li, addBtn);
+    append(ul, li);
+});
+}
+
+function prepareList(author) {
+	var results = "";
+	results = `<li><figure><img src=${author.picture.medium} /></figure>\n
+                <strong>${author.name.first} ${author.name.last}</strong>\n
+                <span>${author.dob.age}</span>\n
+                <span>${author.gender}</span>\n
+                <a href= ${author.email}>${author.email}</a>\n
+                <address>${author.location.city}, ${author.location.state}, ${author.location.country}, ${author.location.postcode} </address>\n
+                \n
+                </li>`;
+	return results;
+}
+/*-----------filter----------*/
+function filter() {
+	const ul = document.getElementById("authors");
+	fetch('/authors')
+  .then(response => response.json())
+  .then(data => {
+    // Iterate over the data and create a list item for each author
+    data.forEach(author => {
+      let li = document.createElement('li');
+      li.innerHTML = `${author.name} (${author.age} years old, ${author.gender})`;
+      ul.appendChild(li);
+    });
+  });
+}
+
+function counterResults(showresults) {
+	if (showresults["count"] > 0) {
+		ul.innerHTML = showresults["results"];
+	} else {
+		ul.innerHTML = "No results found";
+	}
+}
+
+function prepareFilterData(datum, b, selectedItems) {
+	var results = "";
+	var count = 0;
+	datum.map(function (author) {
+		if (b === author.gender) {
+			if (selectedItems.length == 0) {
+				count++;
+				results += prepareList(author);
+			} else {
+				for (var i = 0; i < selectedItems.length; i++) {
+					if (author.location.country === selectedItems[i]) {
+						count++;
+						console.log(author.location.country, author.name, i);
+						results += prepareList(author);
+					}
+				}
+			}
+		} else if (b === "all") {
+			console.log(b);
+			if (selectedItems.length == 0) {
+				count++;
+				results += prepareList(author);
+			}
+			for (var i = 0; i < selectedItems.length; i++) {
+				if (author.location.country === selectedItems[i]) {
+					count++;
+					results += prepareList(author);
+				}
+			}
+			console.log(results);
+		}
+	});
+
+	return { count: count, results: results };
+}
+
+/*-------searching-------*/
+function showResults() {
+	const ul = document.getElementById("authors");
+	var showresults = search(authors);
+	console.log(showresults);
+	showresults ? counterResults(showresults) : null;
+}
+
+function search() {
+	var results = "";
+	var count = 0;
+	var searchText = document.getElementById("search-box").value;
+	console.log(searchText, datum);
+	datum.map(function (author) {
+		var text = author.email;
+		var slicedText = text.slice(0, searchText.length);
+		if (searchText === slicedText) {
+			count++;
+			results += prepareList(author);
+		}
+	});
+	console.log(results, count);
+	return { count: count, results: results };
+}
+  </script>
+
+</body>
+</html>

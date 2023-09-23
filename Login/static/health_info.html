@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Health information</title>
+  <link rel="stylesheet" href="./health_info.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	
+
+	<meta charset="UTF-8">
+	<meta name="description" content="Nutrition tracker">
+	<meta name="keywords" content="nutri tracker, nutrition tracker, nutrition, nutrients, app, daily requirements">
+	<meta name="author" content="Tanja Veljanovska Saveska">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Hind+Siliguri|Pattaya" rel="stylesheet">
+	
+</head>
+
+<body>
+<header id="headerOne">	
+	
+</header>
+
+<main id="mainOne">
+	<div id="divLogIn">
+		<h2>LOG IN TO PLANTY</h2>
+		<form id="formLogIn">
+			
+			<button class="btns" id="btnLogIn" type="button" onclick="logIn()">Enter / Update Health Information</button>
+            <!-- <button class="btns" id="btnLogIn" type="button" onclick="checkMyDay()">Stored Nutreint requirements Table </button>  -->
+			
+		</form>
+	</div>
+
+	<div id="divPersonalInfo">
+		<h2 id="personalGreeting">HI!</h2>
+		<p>What are your daily nutritional requirements?</p>
+		<h3>Let's find out!</h3>
+		<form id="formPersonalInfo">
+			<table id="tablePersonalInfo">
+				<tr>
+					<td class="cellPI">Age:</td>
+					<td><input class="inputs" id="inputAge" type="number" name="age" min="18" max="150"></td>
+				</tr>
+				<tr>
+					<td class="cellPI">Gender:</td>
+					<td>
+						<select class="inputs" id="selectSex" onchange="showSelect()">
+							<option value=""></option>
+							<option value="female">female</option>
+							<option value="male">male</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="cellPI"><span id="pregnantLactating">PG/LAC:</span></td>
+					<td>
+						<select class="inputs" id="selectPregnantLactating"> 
+							<option value=""></option>
+							<option value="pregnant1">Pregnant (1st trimester)</option>
+							<option value="pregnant2">Pregnant (2nd trimester)</option>
+							<option value="pregnant3">Pregnant (3rd trimester)</option>
+							<option value="lactating1">Lactating (0-6 months postpartum)</option>
+							<option value="lactating2">Lactating (7-12 months postpartum)</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="cellPI">Height:</td>
+					<td><input class="inputs" id="inputHeight" type="number" name="height" min="100" max="250"> cm</td>
+				</tr>
+				<tr>
+					<td class="cellPI">Weight:</td>
+					<td><input class="inputs" id="inputWeight" type="number" name="weight" min="20" max="300"> kg</td>
+				</tr>
+				<tr>
+					<td class="cellPI">Lifestyle:</td>
+					<td>
+						<select class="inputs" id="selectLifestyle">
+							<option value=""></option>
+							<option value="sedentary">sedentary</option>
+							<option value="littleActive">somewhat active</option>
+							<option value="active">active</option>
+							<option value="veryActive">very active</option>
+						</select>
+						
+					</td>
+					
+				</tr>
+			</table>
+			<button class="btns" id="btnCalculate" type="button" onclick="calculate()">Calculate</button>
+			<p id="messageFillIn2"></p>
+		</form>
+	</div>
+
+	<div id="divDailyRequirement">
+		<h2>YOUR DAILY NUTRITIONAL REQUIREMENTS</h2>
+		<table id="tableDailyRequirement">
+			<tr>
+				<td>Calories (kcal)</td>
+				<td id="reqCalories"></td>
+			</tr>
+			<tr>
+				<td>Total Carbohydrate (g)</td>
+				<td id="reqTotalCarbohydrate"></td>
+			</tr>
+			<tr>
+				<td>Linoleic Acid (g)</td>
+				<td id="reqLinoleicAcid"></td>
+			</tr>
+			<tr>
+				<td>Alpha-Linoleic Acid (g)</td>
+				<td id="reqAlphaLinoleicAcid"></td>
+			</tr>
+			<tr>
+				<td>Protein (g)</td>
+				<td id="reqProtein"></td>
+			</tr>
+			<tr>
+				<td>Dietary Fiber (g)</td>
+				<td id="reqDietaryFiber"></td>
+			</tr>
+			<tr>
+				<td class="tableHeaders">Vitamins</td>
+			</tr>
+			<tr>
+				<td>Vitamin A (&#181;g)</td>
+				<td id="reqVitA"></td>
+			</tr>
+			<tr>
+				<td>Vitamin D (&#181;g)</td>
+				<td id="reqVitD"></td>
+			</tr>
+			<tr>
+				<td>Vitamin E (mg)</td>
+				<td id="reqVitE"></td>
+			</tr>
+			<tr>
+				<td>Vitamin K (&#181;g)</td>
+				<td id="reqVitK"></td>
+			</tr>	
+			<tr>
+				<td>Vitamin C (mg)</td>
+				<td id="reqVitC"></td>
+			</tr>
+			<tr>
+				<td>Vitamin B1 (mg)</td>
+				<td id="reqVitB1"></td>
+			</tr>
+			<tr>
+				<td>Vitamin B2 (mg)</td>
+				<td id="reqVitB2"></td>
+			</tr>	
+			<tr>
+				<td>Vitamin B3 (mg)</td>
+				<td id="reqVitB3"></td>
+			</tr>
+			<tr>
+				<td>Vitamin B5 (mg)</td>
+				<td id="reqVitB5"></td>
+			</tr>
+			<tr>
+				<td>Vitamin B6 (mg)</td>
+				<td id="reqVitB6"></td>
+			</tr>
+			<tr>
+				<td>Vitamin B9 (&#181;g)</td>
+				<td id="reqVitB9"></td>
+			</tr>
+			<tr>
+				<td>Vitamin B12 (&#181;g)</td>
+				<td id="reqVitB12"></td>
+			</tr>
+			<tr>
+				<td class="tableHeaders">Minerals</td>
+			</tr>
+			<tr>
+				<td>Calcium (mg)</td>
+				<td id="reqCa"></td>
+			</tr>
+			<tr>
+				<td>Copper (&#181;g)</td>
+				<td id="reqCu"></td>
+			</tr>
+			<tr>
+				<td>Iron (mg)</td>
+				<td id="reqFe"></td>
+			</tr>
+			<tr>
+				<td>Magnesium (mg)</td>
+				<td id="reqMg"></td>
+			</tr>	
+			<tr>
+				<td>Manganese (mg)</td>
+				<td id="reqMn"></td>
+			</tr>
+			<tr>
+				<td>Phosphorus (mg)</td>
+				<td id="reqP"></td>
+			</tr>
+			<tr>
+				<td>Selenium (&#181;g)</td>
+				<td id="reqSe"></td>
+			</tr>	
+			<tr>
+				<td>Zinc (mg)</td>
+				<td id="reqZn"></td>
+			</tr>
+			<tr>
+				<td>Potassium (g)</td>
+				<td id="reqK"></td>
+			</tr>
+			<tr>
+				<td>Sodium (g)</td>
+				<td id="reqNa"></td>
+			</tr>
+		</table>
+		<button class="btns" id="btnNext" type="button" onclick="location.href='dashboard.html'">Next</button>		
+	</div>
+    
+	
+	
+</main>
+<!-- 
+<footer id="footerOne">
+	<p>&copy; 2018 &nbsp;<span id="spanFooter">PLANTY</span>.&nbsp;&nbsp;</p>
+	<p id="developedSignature">DESIGNED & DEVELOPED BY: <a id="portfolioLink" href="https://codepen.io/tanjamarathon/full/ePExRE/" target="_blanck">Arya Adesh</a></p>	
+</footer> -->
+
+	<!-- <script src="planty_script.js"></script> -->
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./healt_script.js"></script>
+
+</body>
+</html>

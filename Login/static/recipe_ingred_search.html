@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title> Food Recipe Generator</title>
+  <link rel="stylesheet" href="./recipe_ingred_search.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Mood App</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Food Mood
+            
+        </h1>
+        <div class="profiling-container">
+            <div class="question question1">
+                <p>Please select main recipe</p>
+                <select name="main" id="main">
+                    <option value="vegan">Vegtarian</option>
+                    <option value="fish">Fish</option>
+                    <option value="chicken">Chicken</option>
+                    <option value="duck">Duck</option>
+                    <option value="lamb">Lamb</option>
+                    <option value="seafood">Seafood</option>
+                    <option value="turkey">Turkey</option>
+                    
+
+                </select>
+            </div>
+            <div class="question question2">
+                <p>Please select diet type</p>
+                <select name="diet" id="diet">
+                    <option value="high-protein">High Protein</option>
+                    <option value="low-fat">Low Fat</option>
+                    <option value="low-carb">Low Carb</option>
+                    <option value="high-fibre">High Fibre</option>
+                    <option value="balanced">Balanced</option>
+                </select>
+            </div>
+
+            <div class="question question3">
+                <p>Please select desired preference </p>
+                <select name="heath" id="health">
+                    <option value="alcohol-free">None</option>
+                    <option value="sugar-conscious">Sugar-Conscious</option>
+                    <option value="alcohol-free" selected>Alcohol-Free</option>
+                    <option value="peanut-free">Peanut-Free</option>
+                    <option value="tree-nut-free">Tree-Nut-Free</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="No-oil-added">No Oil</option>
+                    <option value="lupine-free">Lupine Free</option>
+                    <option value="Sulfite-free">sulfite Free</option>
+                    <option value="diary-free">Diary Free</option>
+                </select>
+            </div>
+            <!-- <div class="question question4">
+                <p>Total cooking and prep time</p>
+                <select name="time" id="time">
+                    <option value="20-">Less than 20mins</option>
+                    <option value="30%2D">Less than 30mins</option>
+                    <option value="45%2D">Less than 45mins</option>
+                    <option value="60%2D">Less than 60mins</option>
+                </select>
+            </div> -->
+        </div>
+        
+    <div>
+<label for="searchbox">Save Recipe: </label>
+  <input type="search" id="searchbox" name="searchbox">
+  <input type="submit" value="Save">
+        </div>
+        <style>
+            form {
+              text-align: center;
+            }
+            
+            input[type="search"] {
+              width: 50%;
+            }
+          </style>
+        <div class="submit-button">
+            <input type="button" value="Submit">
+        </div>
+    </div>
+    <div class="display">
+        <div class="result-container">
+            <ul class="ingredients">
+            </ul>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
+<!-- partial -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    const recipeModule = ( () => {
+
+//PUBLIC NAMESPACING 
+
+const mainSelection = document.querySelector('select[id="main"]');
+const dietSelection = document.querySelector('select[id="diet"]');
+const healthSelection = document.querySelector('select[id="health"]');
+const timeSelection = document.querySelector('select[id="time"]');
+const resultContainer = document.querySelector('.result-container');
+const ingredients = document.querySelector('.ingredients'); 
+
+//PRIVATE NAMESPACING
+
+return  {
+    //HANDLE SUBMIT FUNCTION
+    handleSubmit: function(e) {
+        e.preventDefault();
+        //Get values from all selects
+        const mainValue = mainSelection.value;
+        const dietValue = dietSelection.value;
+        const healthValue = healthSelection.value;
+        //call 
+        this.handleFetch(mainValue, dietValue, healthValue);
+    },
+
+    //FETCH ASYNC FUNCTION
+        // 1. validte the response.
+        // - if hits > 0, then process, otherwise, display message no hits
+    handleFetch: async function(mainValue, dietValue, healthValue) {
+        const dataRequest = await fetch(`https://api.edamam.com/search?q=${mainValue}&app_id=08ab47ee&app_key=fa5814a32eb2669676885dff6d983c44&health=${healthValue}&diet=${dietValue}&to=30`);
+        const dataResponse = await dataRequest.json()
+        console.log(dataResponse);
+        const dataResults =  dataResponse.hits; 
+        
+        this.render(dataResults);
+    },
+ 
+
+    //LOOP THROUGH RESULTS
+    render: function(data) {
+        const html = data.map((item) => {
+            return this.renderResult(item);  
+        }).join('');
+        //
+        resultContainer.innerHTML = html;
+    },
+
+    // return a <li> item
+    renderResult: function(data) {
+        //Title 
+        const title = data.recipe.label;
+        //Labels
+        const label = data.recipe.dietLabels.map(tag => {
+            return `<span>${tag}</span>`
+        }).join('');
+        //Image
+        const image = data.recipe.image;
+        //Tags
+        const tags = data.recipe.healthLabels.map(tag => {
+        return `<span>${tag}</span>`
+        }).join('');
+
+        // Calories 
+        const calories = Math.round(data.recipe.calories);
+        
+        
+        
+        //Ingredients
+
+        const ingred = data.recipe.ingredientLines.map(ingredient => {
+        return `<li class="ingredient">${ingredient}</li>`;
+        }).join('');
+
+        //Link
+        const link = data.recipe.url;
+
+        return ` 
+            <div class="pill">
+            <p class="title">${title}</p>
+            <span class="calories">Calories: ${calories}</span>
+           
+            <span class="label">${label}</span>
+            <img src="${image}" alt="Recipe Image">
+            <div class="tags">${tags}</div>
+            <ol>
+            ${ingred}
+            </ol>
+           
+            <a href="${link}" target="_blank">Go to recipe</a>
+            </div>
+            `
+               
+        },
+     myFunction: function(a,b,c) {
+    console.log(a);
+    var recipeData = {
+      title: a,
+      ingredients: b,
+      instructions: c
+    };
+    
+    $.ajax({
+      type: "POST",
+      url: "/save-recipe",
+      data: recipeData,
+      success: function(response) {
+        console.log("Recipe saved successfully.");
+        window.alert("Recipe Saved!");
+      },
+      error: function(error) {
+        console.error("Failed to save recipe.", error);
+      }
+    });
+}
+    }
+
+
+
+})();
+
+const submitButton = document.querySelector('input[type="button"]');
+submitButton.addEventListener('click',recipeModule.handleSubmit.bind(recipeModule));
+
+const saveButton= document.querySelector('input[type="submit"]');
+saveButton.addEventListener('click', () => {
+    event.preventDefault();
+
+    const searchbox1 = document.getElementById('searchbox').value;
+    if (searchbox) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recipeName: searchbox1 })
+    };
+
+    fetch('/save-recipe', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log("Recipe saved successfully.");
+      })
+      .catch(error => {
+        console.error("Failed to save recipe.", error);
+      });
+  }
+
+});
+  </script>
+
+</body>
+</html>

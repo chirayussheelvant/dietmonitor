@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Multi Step Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./health.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<form action="#" id="booking-form">
+		
+		<div class="tab-content">
+			<div class="tab-pane" id="step1">
+				<ul>
+					<li>
+            <label>What is the height</label>
+            <div class="errorTxt"></div>
+              <input type="text" name="height">
+            
+				 </li>
+
+         <li>
+          <label>What is your weight</label>
+          <div class="errorTxt"></div>
+            <input type="text" name="weight">
+       </li>
+       <li>
+        <label>What is your age</label>
+        <div class="errorTxt"></div>
+          <input type="text" name="age">
+     </li>
+				 <li style="list-style: none; display: inline">
+						<button class="next-btn next-btn1" type="button">Next</button>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-pane" id="step2">
+				<ul>
+					<li>
+            <label>Gender</label>
+            <div class="errorTxt"></div>
+            <select name="gender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Not specify</option>
+              
+					  </select>
+				  </li>
+					<li>
+            <label>Which time of day?</label>
+            <div class="errorTxt"></div>
+            <select name="bf_time">
+              
+              <option value="">Select</option>
+              <option value="Morning">Morning</option>
+              <option value="Midday">Midday</option>
+              <option value="Late afternoon, ending with a sunset">Late afternoon, ending with a sunset</option>
+					  </select>
+				  </li>
+					<li>
+            <label>How many hours would you like to charter for?</label>
+            <div class="errorTxt"></div>
+            <select name="bf_hours">
+              <option value="">Select</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="Overnight (24 hours)">Overnight (24 hours)</option>
+					  </select>
+					</li>
+					<li>
+						<button class="next-btn next-btn2" type="button">Next</button>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-pane" id="step3">
+				<ul>
+					<li>
+            <label>What is your first and last name?</label>
+            <div class="errorTxt"></div>
+            <input type="text" name="bf_fullname">
+          </li>
+					<li>
+            <label>Which email address should we send your free estimate to?</label>
+            <div class="errorTxt"></div>
+            <input type="email" name="bf_email">
+          </li>
+					<li>
+            <label>Do you have any questions or a message? (Optional)</label>
+					  <textarea name="bf_message"></textarea>
+					</li>
+					<li>
+						<button class="next-btn next-btn3" type="button">Next</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+    <div class="tab-pane" id="step4">
+      <ul>
+        <li>
+          <label>Question for step 4</label>
+          <input type="text" name="bf_step4">
+        </li>
+        <li>
+          <button class="submit-btn" type="submit">Next</button>
+        </li>
+      </ul>
+    </div>
+
+		<div class="progress-wrap">
+			<div class="line-progress-bar">
+				<div class="line"></div>
+				<ul class="checkout-bar">
+					<li class="progressbar-dots active"><span>step 1</span></li>
+					<li class="progressbar-dots"><span>step 2</span></li>
+					<li class="progressbar-dots"><span> step 3</span></li>
+          <li class="progressbar-dots"><span> step 4</span></li>
+				</ul>
+			</div>
+		</div>
+	
+		<div id="loader" style="display: none;">
+			<img src="//d2erq0e4xljvr7.cloudfront.net/assets/img/ring.svg">
+		</div>
+	</form>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js'></script>
+<script>
+    var v = $("#booking-form").validate({
+      rules: {
+        height: {
+          required: true
+        },
+        weight: {
+          required: true
+        },
+        age: {
+          required: true
+        },
+       
+        gender: {
+          required: true
+        },
+        bf_hours: {
+          required: true
+        },
+        bf_fullname: {
+          required: true
+        },
+        bf_email: {
+          required: true,
+          email: true
+        }
+ 
+      },
+      errorElement: "span",
+      errorClass: "error",
+      errorPlacement: function(error, element) {
+            error.insertBefore(element); 
+      }
+});
+
+$(".next-btn1").click(function() {
+    if (v.form()) {
+      $(".tab-pane").hide();
+      $("#step2").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(2)').addClass('active');
+    }
+ });
+$(".next-btn2").click(function() {
+    if (v.form()) {
+      $(".tab-pane").hide();
+      $("#step3").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(3)').addClass('active');
+    }
+});
+
+$(".next-btn3").click(function() {
+    if (v.form()) {
+      $(".tab-pane").hide();
+      $("#step4").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(4)').addClass('active');
+    }
+});
+
+$(".submit-btn").click(function() {
+  if (v.form()) {
+    setTimeout(function(){
+      // Redirect to the desired HTML file
+      window.location = 'dashboard.html';
+    }, 1000);
+    return false;
+  }
+});
+
+</script>
+
+</body>
+</html>

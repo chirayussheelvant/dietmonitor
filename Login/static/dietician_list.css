@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&family=Inconsolata&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--highlight: #d33a03;
+	--dark-grey: #333333;
+	--lite-grey: #777777;
+}
+
+body {
+	background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "Quicksand", sans-serif;
+}
+
+ul {
+	list-style: none;
+}
+
+input[type="checkbox"] {
+	appearance: none;
+}
+
+section#app {
+	width: 70vw;
+	display: grid;
+	grid-template-columns: 25% 1fr;
+	padding: 2em;
+	margin-top: 2em;
+}
+
+/* Main Staff List 
+------------------------------------------------*/
+main {
+	padding: 0 2em;
+}
+main h3 {
+	font-family: "Inconsolata", sans-serif;
+	font-size: 1rem;
+	font-weight: bold;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--dark-grey);
+}
+main ul {
+	margin-top: 2em;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 2em;
+}
+
+.card {
+	display: grid;
+	grid-template-columns: 70px 1fr;
+	column-gap: 5px;
+	align-items: center;
+	padding: 0.5em 1em;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	border: 1px solid #e2e2e2;
+	border-radius: 1.2em;
+	-webkit-border-radius: 1.2em;
+	-moz-border-radius: 1.2em;
+	-ms-border-radius: 1.2em;
+	-o-border-radius: 1.2em;
+}
+.card__photo {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+}
+.card__info h4 {
+	font-family: "Fira Sans", sans-serif;
+	font-size: 1.1rem;
+	font-weight: 400;
+	color: var(--dark-grey);
+}
+.card__info p {
+	font-family: "Inconsolata", sans-serif;
+	font-size: 0.9rem;
+	font-style: normal;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--lite-grey);
+}
+
+/* Tags Sidebar
+------------------------------------------------*/
+aside h3 {
+	font-family: "Inconsolata", sans-serif;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: bold;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--dark-grey);
+}
+aside ul {
+	padding: 0.5em 0;
+}
+aside li {
+	display: inline-block;
+}
+aside label {
+	font-family: "Fira Sans", sans-serif;
+	font-size: 0.9rem;
+	font-style: normal;
+	font-weight: normal;
+	letter-spacing: normal;
+	line-height: 20px;
+	text-transform: none;
+	color: var(--lite-grey);
+	cursor: pointer;
+}
+/* Removes the last comma */
+aside li:last-of-type label > span {
+	display: none;
+}
+
+/* Developer */
+/* If any tag is selected then hide all posts... */
+aside:has(:checked) + main li {
+	display: none;
+}
+/* and only show the selected posts... */
+aside:has(#Sports:checked) + main li[data-tag="Sports"] {
+	display: grid;
+}
+/* then highlight the selected tag */
+aside label:has(+ #Sports:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+
+/* Engineer */
+aside label:has(+ #engineer:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+aside:has(#Oncology:checked) + main li[data-tag="Oncology"] {
+	display: grid;
+}
+/* Designer */
+aside label:has(+ #Oncology:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+
+aside:has(#Weight:checked) + main li[data-tag="Weight"] {
+	display: grid;
+}
+aside label:has(+ #Weight:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+/* Mobile */
+aside label:has(+ #Vegetarian:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+aside:has(#Vegetarian:checked) + main li[data-tag="Vegetarian"] {
+	display: grid;
+}
+/* SEO */
+aside label:has(+ #Gastrointestinal:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+aside:has(#Gastrointestinal:checked) + main li[data-tag="Gastrointestinal"] {
+	display: grid;
+}
+/* Dev Ops */
+aside label:has(+ #Pediatric:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+aside:has(#Pediatric:checked) + main li[data-tag="Pediatric"] {
+	display: grid;
+}
+/* Tester */
+aside label:has(+ #Geriatric:checked) {
+	font-weight: bold;
+	color: var(--highlight);
+}
+aside:has(#Geriatric:checked) + main li[data-tag="Geriatric"] {
+	display: grid;
+}
+
+@media (max-width: 700px) {
+	section {
+		width: 90vw;
+		display: block;
+		align-items: flex-start;
+	}
+	main {
+		margin-top: 1em;
+		padding: 0;
+		height: 100%;
+	}
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>dietitian profile</title>
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+    <link rel="stylesheet" href="./dietician.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="wrapper">
+
+      <div class="profile-card">
+          <div class="profile-header">
+              <img src="./diet_1.jpg" alt="">
+          </div>
+          <div class="profile-body">
+                <div class="author-img">
+                    <img src="./diet_2.jpg" alt="">
+                </div>
+                <div class="name">List of Dietitians</div>
+                <div class="intro">
+                   <p>Search dietitican Profiles   
+                   </p>
+                </div>
+                <div class="treat"></div>
+                <div class="degree"></div>
+                <div class="clinic"></div>
+                <div class="place"></div>
+                <div class="years"></div>
+                <div class="email"></div>
+                <div class="social-icon">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                   
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-google-plus-g"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+          </div>
+      </div>
+
+      <center><button type="button" id="next">Next</button></center>
+      <script>
+const nextButton = document.querySelector("#next");
+let currentId = 0;
+
+nextButton.addEventListener("click", () => {
+  // Make an HTTP request to the server to get the next dietician
+  fetch(`/dieticians/next?id=${currentId}`)
+    .then(response => response.json())
+    .then(data => {
+      // If the id is null, start again from the beginning
+      if (data.id === null) {
+        currentId = 0;
+      } else {
+        // Update the page with the new dietician's information
+        const profileCard = document.querySelector(".profile-card");
+        profileCard.querySelector(".name").textContent = data.name;
+        profileCard.querySelector(".intro p").textContent = data.description;
+        profileCard.querySelector(".author-img img").src = data.image;
+        profileCard.querySelector(".treat").textContent = "Specialization: "+data.role;
+        profileCard.querySelector(".clinic").textContent = "Clinic: "+data.hospital_name;
+        profileCard.querySelector(".place").textContent = "Location: "+data.clinic_place;
+        profileCard.querySelector(".degree").textContent = "Degree: "+data.highest_degree;
+        profileCard.querySelector(".years").textContent = "Practice Years: "+data.practice_years;
+        profileCard.querySelector(".email").textContent = "Email: "+data.email_id;
+        currentId = data.id;
+      }
+    });
+});
+
+
+      </script>
+  </div>
+
+  
+</body>
+</html>

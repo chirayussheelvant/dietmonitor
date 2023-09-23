@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Diet To Do List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./medicine.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="app-container" id="taskList">
+  <h1 class="app-header">Diet To Do list</h1>
+  <div class="add-task">
+    <input type="text" autocomplete="off" placeholder="Add New Task" v-model="tasks.name" @keyup.enter="newItem" class="task-input">
+		<input type="submit" value="" class="submit-task" @click="newItem" title="Add Task">
+  </div>
+  <ul class="task-list">
+		<li class="task-list-item" v-for="task in tasks">
+			<label class="task-list-item-label">
+        <input type="checkbox">
+				<span>{{task.name}}</span>
+			</label>
+			<span @click="delItem(task)" class="delete-btn" title="Delete Task">{{task.del}}</span>
+		</li>
+	</ul>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+  <script>
+
+new Vue({
+  el: '#taskList',
+  data: {
+    title: 'to do list',
+    tasks: []
+  },
+  created: function() {
+    // Load tasks from localStorage
+    var savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+      this.tasks = JSON.parse(savedTasks);
+    } else {
+      // If no saved tasks, use default tasks
+      this.tasks = [
+        { name: 'Eat Apple every day' },
+        { name: 'Drink water with honey' },
+        { name: 'Meet dietician' }
+      ];
+    }
+  },
+  methods: {
+    newItem: function() {
+  if (!this.tasks.name) {
+    return;
+  }
+  this.tasks.push({
+    name: this.tasks.name,
+    del: ''
+  });
+  this.tasks.name = "";
+  // Save tasks in localStorage
+  localStorage.setItem('tasks', JSON.stringify(this.tasks));
+},
+   delItem: function (task) {
+			this.tasks.splice(this.tasks.indexOf(task), 1)
+		}
+
+  }
+});
+
+  </script>
+
+</body>
+</html>

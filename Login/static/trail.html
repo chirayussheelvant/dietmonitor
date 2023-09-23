@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel='stylesheet' href='trail_style.css'>
+  <meta charset="UTF-8">
+  <title>Timeline</title>
+</head>
+
+<body>
+  
+  <div class="container">
+    <header class="clearfix">
+      <h3>Select date:</h3>
+      <input type="date" name="date" id="date">
+        <!-- <input type="time" name="time" id="time"> -->
+        
+        <button type="submit">Submit</button>
+      <h1>Timeline for Diet</h1>
+    </header>	
+    <div class="main">
+      <ul class="cbp_tmtimeline">
+      </ul>
+    </div>
+  </div>
+  <script>
+  const dateInput = document.querySelector('#date');
+  // const timeInput = document.querySelector('#time');
+  const submitButton = document.querySelector('button[type="submit"]');
+  submitButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    document.querySelector('.cbp_tmtimeline').innerHTML = '';
+
+
+    // Make a request to the server to retrieve the data
+    fetch(`/timeline?date=${dateInput.value}`)
+      .then(response => response.json())
+      .then(results => {
+        // Loop through the results and append the date and description to the webpage
+        results.forEach(function (row) {
+
+          const timelineItem = document.createElement('li');
+          timelineItem.innerHTML = `
+          <h2>${dateInput.value}</h2>
+            <time class="cbp_tmtime" datetime="${row.hours}:${row.min}:${row.sec}"><span>${row.hours}:${row.min}:${row.sec}</span></time>
+            <div class="cbp_tmicon"></div>
+            <div class="cbp_tmlabel">
+              <h2>😋food Item: ${row.food_name}</h2>
+              <p>🍜Weight= ${row.weight} g</p>
+              <p>🔥Calories = ${row.calories} kCal</p>
+              <p>🥘Carbohydrates = ${row.carbs} g </p>
+              <p>🍰Fat = ${row.fat} g </p>
+              <p>🥩Protein = ${row.proteins} g </p>
+              <p>🍡Cholestrol = ${row.cholestrol} mg </p>
+              <p>🧋Sugar = ${row.sugar} g </p>
+              <p>🥑Fiber = ${row.fiber} mg </p>
+              <p>🧂Sodium = ${row.sodium} mg </p>
+              <p>🧁Potassium = ${row.potassium} mg </p>
+              <p>🥕Vitamin A = ${row.vitamin_A} mg </p>
+              <p>🍎Vitamin C = ${row.Vitamin_C} mg </p>
+              <p>🚰water = ${row.water} g </p>
+            </div>
+          `;
+          document.querySelector('.cbp_tmtimeline').appendChild(timelineItem);
+        });
+
+        if(results.length == 0)
+        {
+          document.querySelector('.cbp_tmtimeline').innerHTML = '<h1><center>❌ No data available ❌</center></h1>';
+        }
+
+      });
+    
+  });
+  </script>
+</body>
+</html>

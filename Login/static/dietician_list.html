@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@700&amp;display=swap'>
+  <link rel="stylesheet" href="./dietician_list.css">
+  
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<section id="app">
+    <aside>
+		<h3>Filter By Role</h3>
+		<ul>
+			<li v-for="(tag, i) in tags">
+				<label :for="tag">{{ tag }}<span>, </span></label>
+				<input type="checkbox" :id="tag">
+			</li>
+		</ul>
+	</aside>
+	<main>
+		<h3>Dietian List</h3>
+		<ul>
+			<li v-for="(staff, i) in personnel" :data-tag="staff.role" class="card">
+				<img class="card__photo" :src="staff.image" alt="staff photo">
+				<span class="card__info">
+					
+				
+   <h4>{{ staff.name }}</h4>
+					
+					
+					<p>{{ staff.role }}</p>
+				</span>
+			</li>
+		</ul>
+	</main>
+</section>
+<!-- partial -->
+  <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+  <script>
+const { createApp } = Vue;
+
+createApp({
+	data() {
+		return {
+            tags: [
+				"Sports",
+
+				"Oncology",
+
+				"Geriatric",
+
+				"Pediatric",
+
+				"Vegetarian",
+
+				"Gastrointestinal",
+				"Weight"
+			
+			],
+			personnel: [] // array to store staff members from the database
+		}
+	},
+	created() {
+		// make a GET request to the server to retrieve the list of staff members
+		fetch('/staff-members')
+		.then(response => response.json())
+		.then(data => {
+			this.personnel = data;
+		});
+	}
+}).mount('#app');
+
+
+
+
+  </script>
+</body>
+</html>

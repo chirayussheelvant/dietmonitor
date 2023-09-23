@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ</title>
+  <link rel="stylesheet" href="./faq.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <h2>Frequently Asked Questions</h2>
+  <div class="accordion">
+    <div class="accordion-item">
+      <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">What is the food tracking application all about?</span><span class="icon" aria-hidden="true"></span></button>
+      <div class="accordion-content">
+        <p>The food tracking application is a tool that allows individuals to track and monitor their intake of nutrients like proteins, fats, carbohydrates, and macronutrients like potassium, iron, Sodium, etc. The application provides information about intolerances, recipes, and ingredients in food items, and helps users make informed decisions about their diet for a healthy lifestyle.</p>
+    </div>
+    <div class="accordion-item">
+      <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">How does the food tracking application work?</span><span class="icon" aria-hidden="true"></span></button>
+      <div class="accordion-content">
+        <p>The food tracking application takes manual input from  user and voice inputs to track food consumed by individuals. Information about nutrients is then extracted based on that food item. The app provides daily insight into the nutrient intake of individuals and makes suggestions on food items to be consumed to meet daily requirements.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title"> How does the application store data?</span><span class="icon" aria-hidden="true"></span></button>
+      <div class="accordion-content">
+        <p>The application makes use of relational databases like MySQL to store data and perform complex operations with efficiency. The text translation of voice input represents unstructured data and is stored in a NoSQL database, while the useful data obtained about the users diet is transferred to a relational database.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">HHow does the application help with a healthy lifestyle?</span><span class="icon" aria-hidden="true"></span></button>
+      <div class="accordion-content">
+        <p>The application provides insight into the nutrient intake of individuals on a daily basis and makes suggestions on food items to be consumed to meet daily requirements. By monitoring their diet, users can prevent deficiency diseases that cause degradation of life and maintain a healthy lifestyle.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">How does the application educate users?</span><span class="icon" aria-hidden="true"></span></button>
+      <div class="accordion-content">
+        <p>The application educates users on the importance of diet in a healthy lifestyle by providing information about the daily nutrient requirements and the amounts consumed. This helps users make informed decisions about their diet and prevent nutrient deficiencies.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script>
+    const items = document.querySelectorAll(".accordion button");
+
+function toggleAccordion() {
+  const itemToggle = this.getAttribute('aria-expanded');
+  
+  for (i = 0; i < items.length; i++) {
+    items[i].setAttribute('aria-expanded', 'false');
+  }
+  
+  if (itemToggle == 'false') {
+    this.setAttribute('aria-expanded', 'true');
+  }
+}
+
+items.forEach(item => item.addEventListener('click', toggleAccordion));
+  </script>
+
+</body>
+</html>
